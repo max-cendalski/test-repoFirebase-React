@@ -29,7 +29,6 @@ const App = () => {
           <Route exact path={ROUTES.ADMIN} element={<AdminPage />} />
           <Route exact path={ROUTES.HOME} element={<HomePage />} />
         </Routes>
-
       </article>
     </Router>
   )
