@@ -19,6 +19,9 @@ code {
   flex-direction: column;
 }
 
+.signup-form ::placeholder {
+  color: rgb(173, 169, 169);
+}
 .signup-form input {
   margin: .275rem;
   height: 1.6rem;
