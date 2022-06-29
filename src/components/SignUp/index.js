@@ -55,7 +55,7 @@ class SignUpForm extends Component {
 
     const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
     return (
-        <form onSubmit={this.onSubmit}>
+        <form className="signup-form"onSubmit={this.onSubmit}>
           <input
             name='username'
             value={username}
