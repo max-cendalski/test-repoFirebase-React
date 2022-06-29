@@ -1,9 +1,13 @@
-// Import the functions you need from the SDKs you need
 import app from 'firebase/compat/app';
+import {initializeApp} from 'firebase/app';
+import 'firebase/compat/auth';
 
 
-const config = {
-  apiKey: process.env.REACT_API_KEY,
+
+
+
+const firebaseConfig = {
+  apiKey:process.env.REACT_APP_API_KEY,
   authDomain:process.env.REACT_AUTH_DOMAIN,
   projectId: process.env.EACTP_PROJECT_ID,
   storageBucket: process.env.REACT_STORAGE_BUCKET,
@@ -12,12 +16,27 @@ const config = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
-
-
 class Firebase {
   constructor() {
-    app.initializeApp(config)
+    app.initializeApp(firebaseConfig);
+
+    this.auth = app.auth();
   }
+
+  // *** Auth API ***
+
+  doCreateUserWithEmailAndPassword = (email, password) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
+
+  doSignInWithEmailAndPassword = (email, password) =>
+    this.auth.signInWithEmailAndPassword(email, password);
+
+  doSignOut = () => this.auth.signOut();
+
+  doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
+
+  doPasswordUpdate = password =>
+    this.auth.currentUser.updatePassword(password);
 }
 
 export default Firebase;
