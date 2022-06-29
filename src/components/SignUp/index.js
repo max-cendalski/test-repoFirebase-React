@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 
+import {FirebaseContext} from '../Firebase'
 import * as Routes from '../../constants/routes';
 
 const INITIAL_STATE = {
@@ -14,7 +15,9 @@ const INITIAL_STATE = {
 const SignUpPage = () => (
   <article>
     <h1>SignUp</h1>
-    <SignUpForm />
+    <FirebaseContext.Consumer>
+      {firebase => <SignUpForm firebase={firebase} />}
+    </FirebaseContext.Consumer>
   </article>
 );
 
@@ -24,6 +27,16 @@ class SignUpForm extends Component {
     this.state = {...INITIAL_STATE}
   }
   onSubmit = e => {
+    const {username, email, passwordOne} = this.state
+    this.props.firebase
+    .doCreateUserWithEmailAndPassword(email, passwordOne)
+    .then(authUser => {
+      this.setState({...INITIAL_STATE})
+    })
+    .catch(error => {
+      this.setState({error})
+    })
+    e.prevent.default()
 
   }
    onChange = e => {
