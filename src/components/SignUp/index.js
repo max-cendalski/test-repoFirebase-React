@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter } from 'react-router-dom';
 
-import {FirebaseContext} from '../Firebase'
-import * as Routes from '../../constants/routes';
+import {withFirebase} from '../Firebase'
+import * as ROUTES from '../../constants/routes';
 
 const INITIAL_STATE = {
   username: '',
@@ -15,13 +15,11 @@ const INITIAL_STATE = {
 const SignUpPage = () => (
   <article>
     <h1>SignUp</h1>
-    <FirebaseContext.Consumer>
-      {firebase => <SignUpForm firebase={firebase} />}
-    </FirebaseContext.Consumer>
+    <SignUpForm />
   </article>
 );
 
-class SignUpForm extends Component {
+class SignUpFormBase extends Component {
   constructor(props) {
     super(props)
     this.state = {...INITIAL_STATE}
@@ -32,6 +30,7 @@ class SignUpForm extends Component {
     .doCreateUserWithEmailAndPassword(email, passwordOne)
     .then(authUser => {
       this.setState({...INITIAL_STATE})
+      this.props.history.push(ROUTES.HOME)
     })
     .catch(error => {
       this.setState({error})
@@ -55,7 +54,7 @@ class SignUpForm extends Component {
 
     const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
     return (
-        <form className="signup-form"onSubmit={this.onSubmit}>
+        <form className="signup-for"onSubmit={this.onSubmit}>
           <input
             name='username'
             value={username}
@@ -96,9 +95,10 @@ class SignUpForm extends Component {
 
 const SignUpLink = () => (
   <p>
-    Don't have an account? <Link to={Routes.SIGN_UP}>Sign Up</Link>
+    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
 )
+const SignUpForm = withFirebase(SignUpFormBase)
 
 export default SignUpPage;
 
