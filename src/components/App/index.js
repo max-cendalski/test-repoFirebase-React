@@ -1,6 +1,6 @@
 import React from 'react'
 import * as ROUTES from '../../constants/routes'
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import LandingPage from '../Landing';
 import SignUpPage from '../SignUp'
 import SingInPage from '../SignIn';
@@ -16,7 +16,7 @@ import AdminPage from '../Admin';
 const App = () => {
 
   return (
-    <Router>
+    <BrowserRouter>
       <article>
         <Navigation />
         <hr />
@@ -30,7 +30,7 @@ const App = () => {
           <Route exact path={ROUTES.HOME} element={<HomePage />} />
         </Routes>
       </article>
-    </Router>
+    </BrowserRouter>
   )
 }
 

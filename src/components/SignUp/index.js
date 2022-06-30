@@ -36,7 +36,6 @@ class SignUpFormBase extends Component {
       this.setState({error})
     })
     e.prevent.default()
-
   }
    onChange = e => {
     this.setState({
@@ -54,7 +53,7 @@ class SignUpFormBase extends Component {
 
     const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
     return (
-        <form className="signup-for"onSubmit={this.onSubmit}>
+        <form className="signup-form"onSubmit={this.onSubmit}>
           <input
             name='username'
             value={username}
