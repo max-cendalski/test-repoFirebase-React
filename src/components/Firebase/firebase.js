@@ -1,5 +1,6 @@
-import app from 'firebase/compat/app';
-import 'firebase/compat/auth';
+//import app from 'firebase/compat/app'
+import {initializeApp} from "firebase/app"
+import {getAuth} from "firebase/auth"
 
 
 const firebaseConfig = {
@@ -12,7 +13,19 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
-class Firebase {
+const app = initializeApp(firebaseConfig)
+
+export const auth = getAuth(app)
+
+export default app
+
+
+
+
+
+
+
+/* class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
 
@@ -36,3 +49,4 @@ class Firebase {
 }
 
 export default Firebase;
+ */

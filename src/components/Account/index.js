@@ -1,10 +1,16 @@
 
 import React from 'react';
 
-const Account = () => (
-  <div>
-    <h1>Account</h1>
+const Account = () => {
+  return (
+    <div>
+      <h1>Account</h1>
+      <p>User Email: </p>
+      <button>Logout</button>
   </div>
-);
+  )
+}
+
+
 
 export default Account;

@@ -18,6 +18,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <article>
+      <h1>FIREBASE</h1>
         <Navigation />
         <hr />
         <Routes>
