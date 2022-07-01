@@ -20,15 +20,16 @@ const SignUpPage = () => (
   </article>
 );
 
+const handleSubmit= (e) => {
+
+}
+
 const SignUp = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-
-
-   return(
 
     //const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
     return (
@@ -61,7 +62,6 @@ const SignUp = () => {
         {error && <p>{error.message}</p>}
       </form>
     )
-  )
 }
 
 const SignUpLink = () => (
@@ -69,7 +69,6 @@ const SignUpLink = () => (
     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
 )
-const SignUpForm = withFirebase(SignUpFormBase)
 
 export default SignUpPage;
 

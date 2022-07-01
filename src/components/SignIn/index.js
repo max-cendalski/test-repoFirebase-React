@@ -7,7 +7,15 @@ const SignIn = () => {
     <article>
       <h1>Sign in to your account</h1>
       <p>Don't have an account yet? <Link to="/signup">SignUp</Link></p>
-      <form className="signup-form">
+
+    </article>
+  )
+}
+
+export default SignIn;
+
+/*
+ <form className="signup-form">
         <input
           name='username'
           value={username}
@@ -41,9 +49,4 @@ const SignIn = () => {
         disabled={isInvalid}
         >Sign Up</button>
         {error && <p>{error.message}</p>}
-      </form>
-    </article>
-  )
-}
-
-export default SignIn;
+      </form> */
