@@ -1,54 +1,48 @@
-import React,{Component} from 'react';
-import {Link, withRouter } from 'react-router-dom';
 import { useState } from 'react';
-
-import {withFirebase} from '../Firebase'
-import * as ROUTES from '../../constants/routes';
-
-
+import {UserAuth} from '../Firebase/context'
 
 
 const SignUp = () => {
-  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  const handleSubmit= (e) => {
+  const {createUser} = UserAuth()
 
-}
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
+    try {
+      await createUser(email, password)
+    } catch (e) {
+      setError(e.message)
+    }
+  }
 
-    const isInvalid =  password === '' || email === '' || username === '';
-    return (
-      <form className="signup-form"onSubmit={handleSubmit}>
+  const isInvalid =  password === '' || email === '';
+  return (
+    <form className="signup-form"onSubmit={handleSubmit}>
+      <input
+        name='email'
+        value={email}
+        onChange={(e)=>setEmail(e.target.value)}
+        type='text'
+        placeholder='Email Address'
+      />
         <input
-          name='username'
-          value={username}
-          onChange={(e)=>setUsername(e.target.value)}
-          type='text'
-          placeholder='Full Name'
-        />
-        <input
-          name='email'
-          value={email}
-          onChange={(e)=>setEmail(e.target.value)}
-          type='text'
-          placeholder='Email Address'
-        />
-          <input
-          name='password'
-          value={password}
-          onChange={(e)=>setPassword(e.target.value)}
-          type='password'
-          placeholder='Password'
-        />
-        <button
-        type='submit'
-        disabled={isInvalid}
-        >Sign Up</button>
-        {error && <p>{error.message}</p>}
-      </form>
-    )
+        name='password'
+        value={password}
+        onChange={(e)=>setPassword(e.target.value)}
+        type='password'
+        placeholder='Password'
+      />
+      <button
+      type='submit'
+      disabled={isInvalid}
+      >Sign Up</button>
+      {error && <p>{error.message}</p>}
+    </form>
+  )
 }
 
 

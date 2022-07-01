@@ -9,6 +9,7 @@ import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
+import { AuthContextProvider } from '../Firebase/context';
 
 
 
@@ -21,7 +22,8 @@ const App = () => {
       <h1>FIREBASE</h1>
         <Navigation />
         <hr />
-        <Routes>
+        <AuthContextProvider>
+          <Routes>
           <Route exact path={ROUTES.LANDING} element={<LandingPage />} />
           <Route exact path={ROUTES.SIGN_UP} element={<SignUp />} />
           <Route exact path={ROUTES.SIGN_IN} element={<SingInPage />} />
@@ -30,6 +32,8 @@ const App = () => {
           <Route exact path={ROUTES.ADMIN} element={<AdminPage />} />
           <Route exact path={ROUTES.HOME} element={<HomePage />} />
         </Routes>
+        </AuthContextProvider>
+
       </article>
     </BrowserRouter>
   )
