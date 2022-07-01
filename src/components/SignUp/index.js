@@ -5,24 +5,8 @@ import { useState } from 'react';
 import {withFirebase} from '../Firebase'
 import * as ROUTES from '../../constants/routes';
 
-const INITIAL_STATE = {
-  username: '',
-  email: '',
-  passwordOne: '',
-  passwordTwo: '',
-  error: null
-};
 
-const SignUpPage = () => (
-  <article>
-    <h1>SignUp</h1>
-    <SignUpForm />
-  </article>
-);
 
-const handleSubmit= (e) => {
-
-}
 
 const SignUp = () => {
   const [username, setUsername] = useState('')
@@ -30,28 +14,31 @@ const SignUp = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
+  const handleSubmit= (e) => {
 
-    //const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
+}
+
+    const isInvalid =  password === '' || email === '' || username === '';
     return (
       <form className="signup-form"onSubmit={handleSubmit}>
         <input
           name='username'
           value={username}
-          onChange={(e)=>e.target.value}
+          onChange={(e)=>setUsername(e.target.value)}
           type='text'
           placeholder='Full Name'
         />
         <input
           name='email'
           value={email}
-          onChange={(e)=>e.target.value }
+          onChange={(e)=>setEmail(e.target.value)}
           type='text'
           placeholder='Email Address'
         />
           <input
           name='password'
-          value={passwordOne}
-          onChange={(e)=>e.target.value }
+          value={password}
+          onChange={(e)=>setPassword(e.target.value)}
           type='password'
           placeholder='Password'
         />
@@ -64,15 +51,9 @@ const SignUp = () => {
     )
 }
 
-const SignUpLink = () => (
-  <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-  </p>
-)
 
-export default SignUpPage;
 
-export {SignUpForm, SignUpLink}
+export default SignUp;
 
 /*
   onSubmit = e => {
