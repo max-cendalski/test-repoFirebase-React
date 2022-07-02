@@ -24,13 +24,13 @@ const App = () => {
         <hr />
         <AuthContextProvider>
           <Routes>
-          <Route exact path={ROUTES.LANDING} element={<LandingPage />} />
-          <Route exact path={ROUTES.SIGN_UP} element={<SignUp />} />
-          <Route exact path={ROUTES.SIGN_IN} element={<SingInPage />} />
-          <Route exact path={ROUTES.PASSWORD_FORGET} element={<PasswordForgetPage />} />
-          <Route exact path={ROUTES.ACCOUNT} element={<AccountPage />} />
-          <Route exact path={ROUTES.ADMIN} element={<AdminPage />} />
-          <Route exact path={ROUTES.HOME} element={<HomePage />} />
+          <Route exact path = '/' element={<LandingPage />} />
+          <Route exact path = '/signup' element={<SignUp />} />
+          <Route exact path = '/signin' element={<SingInPage />} />
+          <Route exact path = '/pw-forget' element={<PasswordForgetPage />} />
+          <Route exact path = '/account' element={<AccountPage />} />
+          <Route exact path = '/admin' element={<AdminPage />} />
+          <Route exact path = '/home' element={<HomePage />} />
         </Routes>
         </AuthContextProvider>
 
@@ -40,3 +40,11 @@ const App = () => {
 }
 
 export default App
+
+export const LANDING = '/';
+export const SIGN_UP = '/signup';
+export const SIGN_IN = '/signin';
+export const HOME = '/home';
+export const ACCOUNT = '/account';
+export const ADMIN = '/admin';
+export const PASSWORD_FORGET = '/pw-forget';

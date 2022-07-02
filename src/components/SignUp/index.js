@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import {UserAuth} from '../Firebase/context'
 
 
@@ -6,18 +7,20 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-
   const {createUser} = UserAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError('');
     try {
-      await createUser(email, password)
+      await createUser(email, password);
+      navigate('/account')
     } catch (e) {
-      setError(e.message)
+      setError(e.message);
+      console.log(e.message);
     }
-  }
+  };
 
   const isInvalid =  password === '' || email === '';
   return (
@@ -29,7 +32,7 @@ const SignUp = () => {
         type='text'
         placeholder='Email Address'
       />
-        <input
+      <input
         name='password'
         value={password}
         onChange={(e)=>setPassword(e.target.value)}
