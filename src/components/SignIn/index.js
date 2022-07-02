@@ -11,12 +11,13 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('');
     try {
       await signIn(email,password)
       navigate('/account')
     } catch (e) {
       setError(e.message)
-      console.log('ERROR',error)
+      console.log('ERROR',e.message)
     }
   }
 
@@ -33,7 +34,7 @@ const SignIn = () => {
           type='text'
           placeholder='Email Address'
         />
-          <input
+        <input
           name='password'
           value={password}
           onChange={(e)=>setPassword(e.target.value)}
@@ -41,9 +42,10 @@ const SignIn = () => {
           placeholder='Password'
         />
         <button
-        type='submit'
-        disabled={isInvalid}
-        >Sign In</button>
+          type='submit'
+          disabled={isInvalid}
+        >
+        Sign In</button>
         {error && <p>{error.message}</p>}
       </form>
 

@@ -9,6 +9,7 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import { AuthContextProvider } from '../Firebase/context';
+import ProtectedRoute from '../ProtectedRoute';
 
 
 
@@ -26,8 +27,16 @@ const App = () => {
           <Route exact path = '/' element={<LandingPage />} />
           <Route exact path = '/signup' element={<SignUp />} />
           <Route exact path = '/signin' element={<SingInPage />} />
+          <Route exact path = '/landing' element={<LandingPage />} />
           <Route exact path = '/pw-forget' element={<PasswordForgetPage />} />
-          <Route exact path = '/account' element={<AccountPage />} />
+          <Route
+            path = '/account'
+            element={
+              <ProtectedRoute>
+                <AccountPage />
+              </ProtectedRoute>
+            }
+          />
           <Route exact path = '/admin' element={<AdminPage />} />
           <Route exact path = '/home' element={<HomePage />} />
         </Routes>
