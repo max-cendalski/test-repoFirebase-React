@@ -51,25 +51,3 @@ const SignUp = () => {
 
 
 export default SignUp;
-
-/*
-  onSubmit = e => {
-    const {username, email, passwordOne} = this.state
-    this.props.firebase
-    .doCreateUserWithEmailAndPassword(email, passwordOne)
-    .then(authUser => {
-      this.setState({...INITIAL_STATE})
-      this.props.history.push(ROUTES.HOME)
-    })
-    .catch(error => {
-      this.setState({error})
-    })
-    e.prevent.default()``
-  } */
-
-
-   /*   onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  } */
