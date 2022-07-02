@@ -9,7 +9,7 @@ const Navigation = () => (
         <Link to = '/signin'>Sign In</Link>
       </li>
       <li>
-        <Link to = '/langing'>Landing</Link>
+        <Link to = '/landing'>Landing</Link>
       </li>
       <li>
         <Link to = '/home'>Home</Link>
