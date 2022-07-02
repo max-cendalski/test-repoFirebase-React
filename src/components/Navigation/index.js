@@ -1,24 +1,24 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import * as ROUTES from '../../constants/routes'
+
 
 const Navigation = () => (
   <article>
     <ul>
       <li>
-        <Link to ={ROUTES.SIGN_IN}>Sign In</Link>
+        <Link to = '/signin'>Sign In</Link>
       </li>
       <li>
-        <Link to ={ROUTES.LANDING}>Landing</Link>
+        <Link to = '/langing'>Landing</Link>
       </li>
       <li>
-        <Link to ={ROUTES.HOME}>Home</Link>
+        <Link to = '/home'>Home</Link>
       </li>
       <li>
-        <Link to ={ROUTES.ACCOUNT}>Account</Link>
+        <Link to = '/account'>Account</Link>
       </li>
       <li>
-        <Link to ={ROUTES.ADMIN}>Admin</Link>
+        <Link to = '/admin'>Admin</Link>
       </li>
     </ul>
   </article>

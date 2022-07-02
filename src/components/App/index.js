@@ -1,5 +1,4 @@
 import React from 'react'
-import * as ROUTES from '../../constants/routes'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import LandingPage from '../Landing';
 import SignUp from '../SignUp'
