@@ -1,36 +1,45 @@
 import React from 'react'
-import * as ROUTES from '../../constants/routes'
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import LandingPage from '../Landing';
-import SignUpPage from '../SignUp'
+import SignUp from '../SignUp'
 import SingInPage from '../SignIn';
 import Navigation from '../Navigation';
 import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
-
-
+import { AuthContextProvider } from '../Firebase/context';
+import ProtectedRoute from '../ProtectedRoute';
 
 
 const App = () => {
-
   return (
-    <Router>
+    <BrowserRouter>
       <article>
-        <Navigation />
-        <hr />
-        <Routes>
-          <Route exact path={ROUTES.LANDING} element={<LandingPage />} />
-          <Route exact path={ROUTES.SIGN_UP} element={<SignUpPage />} />
-          <Route exact path={ROUTES.SIGN_IN} element={<SingInPage />} />
-          <Route exact path={ROUTES.PASSWORD_FORGET} element={<PasswordForgetPage />} />
-          <Route exact path={ROUTES.ACCOUNT} element={<AccountPage />} />
-          <Route exact path={ROUTES.ADMIN} element={<AdminPage />} />
-          <Route exact path={ROUTES.HOME} element={<HomePage />} />
+        <AuthContextProvider>
+          <h1>FIREBASE</h1>
+          <Navigation />
+          <hr />
+          <Routes>
+          <Route exact path = '/' element={<LandingPage />} />
+          <Route exact path = '/signup' element={<SignUp />} />
+          <Route exact path = '/signin' element={<SingInPage />} />
+          <Route exact path = '/landing' element={<LandingPage />} />
+          <Route exact path = '/pw-forget' element={<PasswordForgetPage />} />
+          <Route
+            path = '/account'
+            element={
+              <ProtectedRoute>
+                <AccountPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route exact path = '/admin' element={<AdminPage />} />
+          <Route exact path = '/home' element={<HomePage />} />
         </Routes>
+        </AuthContextProvider>
       </article>
-    </Router>
+    </BrowserRouter>
   )
 }
 

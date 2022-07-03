@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h1 {
+  text-align: center;
+}
+.signup-form {
+  width: 30%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-form ::placeholder {
+  color: rgb(173, 169, 169);
+}
+.signup-form input {
+  margin: .275rem;
+  height: 1.6rem;
+  border: 1px solid rgb(183, 178, 178);
+}
+
+.signup-form button {
+  margin: 0 auto;
+  width: 50%;
+  height: 1.4rem;
+}
