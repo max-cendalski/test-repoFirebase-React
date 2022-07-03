@@ -1,13 +1,13 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import LandingPage from '../Landing';
-import SignUp from '../SignUp'
-import SingInPage from '../SignIn';
-import Navigation from '../Navigation';
-import PasswordForgetPage from '../PasswordForget';
-import HomePage from '../Home';
-import AccountPage from '../Account';
-import AdminPage from '../Admin';
+import LandingPage from '../Landing/Landing';
+import SignUp from '../SignUp/SignUp'
+import SingInPage from '../SignIn/SignIn';
+import Navigation from '../Navigation/Navigation';
+import PasswordForgetPage from '../PasswordForget/PasswordForget';
+import HomePage from '../Home/Home';
+import AccountPage from '../Account/Account';
+import AdminPage from '../Admin/Admin';
 import { AuthContextProvider } from '../Firebase/context';
 import ProtectedRoute from '../ProtectedRoute';
 
