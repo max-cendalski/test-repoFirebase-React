@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../Firebase/context';
+import Todos from '../Todos/Todos'
 
 const Account = () => {
   const {user, logout} = UserAuth()
@@ -17,11 +18,13 @@ const Account = () => {
   }
 
   return (
-    <div>
+    <article className='account-container'>
       <h1>Account</h1>
       <p>User Email: {user && user.email}</p>
       <button onClick={handleLogout}>Logout</button>
-  </div>
+      <hr />
+      <Todos />
+  </article>
   )
 }
 

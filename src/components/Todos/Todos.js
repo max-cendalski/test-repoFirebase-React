@@ -2,8 +2,8 @@
 const Todos = () => {
 
   return (
-    <article>
-      Todo List
+    <article className="todos-container">
+      <h1>Todo List</h1>
     </article>
   )
 }
