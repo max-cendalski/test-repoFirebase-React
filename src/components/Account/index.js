@@ -20,6 +20,7 @@ const Account = () => {
     <div>
       <h1>Account</h1>
       <p>User Email: {user && user.email}</p>
+      <button onClick={handleLogout}>Logout</button>
   </div>
   )
 }
@@ -27,5 +28,3 @@ const Account = () => {
 
 
 export default Account;
-
-//    <button onClick={handleLogout}>Logout</button>
