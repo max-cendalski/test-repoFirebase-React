@@ -6,7 +6,7 @@ import SingInPage from '../SignIn';
 import Navigation from '../Navigation';
 import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
-import AccountPage from '../Account';
+import AccountPage from '../Account/Account';
 import AdminPage from '../Admin';
 import { AuthContextProvider } from '../Firebase/context';
 import ProtectedRoute from '../ProtectedRoute';
