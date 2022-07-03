@@ -12,17 +12,14 @@ import { AuthContextProvider } from '../Firebase/context';
 import ProtectedRoute from '../ProtectedRoute';
 
 
-
-
 const App = () => {
-
   return (
     <BrowserRouter>
       <article>
-      <h1>FIREBASE</h1>
-        <Navigation />
-        <hr />
         <AuthContextProvider>
+          <h1>FIREBASE</h1>
+          <Navigation />
+          <hr />
           <Routes>
           <Route exact path = '/' element={<LandingPage />} />
           <Route exact path = '/signup' element={<SignUp />} />
@@ -41,7 +38,6 @@ const App = () => {
           <Route exact path = '/home' element={<HomePage />} />
         </Routes>
         </AuthContextProvider>
-
       </article>
     </BrowserRouter>
   )
