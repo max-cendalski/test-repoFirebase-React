@@ -1,10 +1,12 @@
-import { getDatabase, ref, set } from "firebase/database"
+import { getDatabase, ref, set, get, child } from "firebase/database"
 import { UserAuth } from "../Firebase/context"
+import { useState } from "react"
 
 
 const Todos = () => {
   const {user} = UserAuth()
   console.log('userfromtodos',user.email)
+  const [todos, setTodos] = useState({})
 
   const handleAddTodo = (title) => {
     const db = getDatabase()
@@ -36,13 +38,31 @@ const Todos = () => {
       }
     )
   }
-  const handleGetTodos = () => {
-    console.log('whee')
+const handleGetTodos = () => {
+  console.log('wheee')
+  const dbRef = ref(getDatabase())
+  get(child(dbRef, 'todos/todos')).then((snapshot) => {
+    if (snapshot.exists()) {
+      setTodos(snapshot.val())
+      console.log('todos',todos)
+    } else {
+      console.log("No data available");
+    }
+    }).catch((error) => {
+      console.error(error);
+    })
   }
 
   return (
     <article className="todos-container">
       <h1>Todo List</h1>
+      { todos &&
+          Object.keys(todos).map((obj, index) => {
+          return <div key={index}>{todos[obj].title}</div>
+        })
+
+
+      }
       <button onClick={handleAddTodo}>Add to DB</button>
       <button onClick={handleGetTodos}>Get todos from DB</button>
     </article>
