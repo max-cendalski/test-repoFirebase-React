@@ -5,8 +5,7 @@ import { useState } from "react"
 
 const Todos = () => {
   const {user} = UserAuth()
-  console.log('userfromtodos',user.email)
-  const [todos, setTodos] = useState({})
+  const [todos, setTodos] = useState(null)
 
   const handleAddTodo = () => {
     const db = getDatabase()
@@ -29,11 +28,28 @@ const Todos = () => {
           },
         },
         "users": {
-          "one": {
+          "RKkMoEEsn5ZL0rueUrWsPIT2e912": {
             "name": "max",
-            "email": "test@gmail.com"
+            "email": "test@gmail.com",
+            "todos": {
+              1: {
+                "title": "Play Video Games",
+                "status": true,
+                "id": 235
+              },
+              2: {
+                "title": "Learn TypeScript",
+                "status": true,
+                "id": 222
+              },
+              3: {
+                "title": "Learn Firebase",
+                "status": true,
+                "id": 120
+              },
+            },
           },
-            "two": {
+            2: {
             "name": "arek",
             "email": "olb@gmail.com"
           },
@@ -41,31 +57,39 @@ const Todos = () => {
       }
     )
   }
+
+
+  const handleTodoClick = (id) => {
+    console.log('id',id)
+  }
+
 const handleGetTodos = () => {
-  console.log('wheee')
   const dbRef = ref(getDatabase())
-  get(child(dbRef, 'todos/todos')).then((snapshot) => {
+  get(child(dbRef, `todos/users/${user.uid}`)).then((snapshot) => {
     if (snapshot.exists()) {
-      setTodos(snapshot.val())
+      console.log('snapshot',snapshot.val())
+      setTodos(snapshot.val().todos)
     } else {
       console.log("No data available");
     }
     }).catch((error) => {
       console.error(error);
     })
-      console.log('todoss',todos)
+      if(todos) {
+        console.log('todos.email',todos)
+      }
   }
 
   return (
+
     <article className="todos-container">
       <h1>Todo List</h1>
-      {todos &&
-          Object.keys(todos).map((obj, index) => {
-          return <section className="todo-item" key={todos[obj].id}>{todos[obj].title}</section>
+       {todos &&
+          todos.map((todo, index) => {
+          return <section onClick={() =>{handleTodoClick(todo.id)}} className="todo-item" key={todo.id}>{todo.title}</section>
       })
-
-
       }
+
       <button onClick={handleAddTodo}>Add to DB</button>
       <button onClick={handleGetTodos}>Get todos from DB</button>
     </article>
@@ -74,8 +98,11 @@ const handleGetTodos = () => {
 
 export default Todos
 
-
-
+/*     {todos &&
+          Object.keys(todos).map((obj, index) => {
+          return <section className="todo-item" key={todos[obj].id}>{todos[obj].title}</section>
+      })
+ */
 // An index to track Ada's memberships
 /* {
   "users": {
@@ -102,3 +129,9 @@ export default Todos
     ...
   }
 } */
+/*
+ {todos &&
+          todos.todos.map((obj, index) => {
+          return <section className="todo-item" key={todos[obj].id}>{todos[obj].title}</section>
+      })
+      } */
