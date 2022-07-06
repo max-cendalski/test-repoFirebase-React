@@ -10,23 +10,6 @@ const Todos = () => {
   const handleAddTodo = () => {
     const db = getDatabase()
       set(ref(db, 'todos'), {
-        "todos": {
-          1: {
-            "title": "Play Video Games",
-            "status": true,
-            "id": 235
-          },
-          2: {
-            "title": "Learn TypeScript",
-            "status": true,
-            "id": 222
-          },
-          3: {
-            "title": "Learn Firebase",
-            "status": true,
-            "id": 120
-          },
-        },
         "users": {
           "RKkMoEEsn5ZL0rueUrWsPIT2e912": {
             "name": "max",
@@ -49,7 +32,7 @@ const Todos = () => {
               },
             },
           },
-            2: {
+            "XL9zTWPFxkbP0gyArmw8yIVfi0j1": {
             "name": "arek",
             "email": "olb@gmail.com"
           },
@@ -59,8 +42,12 @@ const Todos = () => {
   }
 
 
-  const handleTodoClick = (id) => {
-    console.log('id',id)
+  const handleTodoClick = (id,title) => {
+    console.log('id:',id)
+    console.log('title:',title)
+  }
+  const handleDeleteTodo = (id) => {
+    console.log('whee')
   }
 
 const handleGetTodos = () => {
@@ -86,7 +73,14 @@ const handleGetTodos = () => {
       <h1>Todo List</h1>
        {todos &&
           todos.map((todo, index) => {
-          return <section onClick={() =>{handleTodoClick(todo.id)}} className="todo-item" key={todo.id}>{todo.title}</section>
+          return <article className="todos-container" key={todo.id}>
+                   <section
+                    onClick={() =>{handleTodoClick(todo.id, todo.title)}}
+                    className="todo-item" >{todo.title}
+                   </section>
+                   <button onClick={handleDeleteTodo} >Delete</button>
+                  </article>
+
       })
       }
 

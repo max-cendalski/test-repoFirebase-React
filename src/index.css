@@ -43,6 +43,7 @@ h1 {
 }
 
 .todo-item {
+  display: inline-block;
   width: 30%;
   border: 1px solid black;
   padding: 1rem;
@@ -52,6 +53,11 @@ h1 {
 }
 
 .todo-item:hover {
-  width: 32%;
+  width: 31%;
   font-weight: 500;
+}
+
+.todos-container button {
+  margin-left: 1rem;
+  height: 2rem;
 }
