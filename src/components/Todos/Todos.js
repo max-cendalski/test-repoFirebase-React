@@ -54,7 +54,7 @@ const handleGetTodos = () => {
 
   const handleUpdateTodo = () => {
     const todoData = {
-                "title": "Play Video",
+                "title": "Learn TypeScript",
                 "status": true,
                 "id": 235
               }
@@ -70,16 +70,25 @@ const handleGetTodos = () => {
     return update(ref(db), updates)
   }
 
-  return (
 
+  const handleDelete = () => {
+    console.log("whee")
+    const db = getDatabase()
+    const newPostKey = push(child(ref(db), `todos/users/${user.uid}/todos`)).key
+    console.log('newPost',newPostKey)
+  }
+
+
+  return (
     <article className="todos-container">
       <h1>Todo List</h1>
        {todos &&
-          todos.map((todo, index) => {
-          return <article className="todos-container" key={todo.id}>
+          Object.keys(todos).map((todo, index) => {
+          return <article className="todos-container" key={Object.keys(todos)}>
                    <section
                     onClick={() =>{handleTodoClick(todo.id, todo.title)}}
-                    className="todo-item" >{todo.title}
+                    className="todo-item"
+                    >{todos[todo].title}
                    </section>
                    <button onClick={handleDeleteTodo} >Delete</button>
                   </article>
@@ -90,6 +99,7 @@ const handleGetTodos = () => {
       <button onClick={handleAddTodo}>Add to DB</button>
       <button onClick={handleGetTodos}>Get todos from DB</button>
       <button onClick={handleUpdateTodo}>UpdateTodo</button>
+      <button onClick={handleDelete}>Delete Todo</button>
     </article>
   )
 }
