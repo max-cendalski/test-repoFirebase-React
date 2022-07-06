@@ -56,10 +56,10 @@ const handleGetTodos = () => {
   return (
     <article className="todos-container">
       <h1>Todo List</h1>
-      { todos &&
+      {todos &&
           Object.keys(todos).map((obj, index) => {
-          return <div key={index}>{todos[obj].title}</div>
-        })
+          return <section className="todo-item" key={index}>{todos[obj].title}</section>
+      })
 
 
       }

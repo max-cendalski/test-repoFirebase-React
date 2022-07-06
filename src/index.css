@@ -41,3 +41,17 @@ h1 {
   margin: 2rem auto;
   width: 80%;
 }
+
+.todo-item {
+  width: 30%;
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 1rem auto;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.todo-item:hover {
+  width: 32%;
+  font-weight: 500;
+}
