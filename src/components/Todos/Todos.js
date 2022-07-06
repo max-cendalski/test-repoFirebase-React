@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, get, child } from "firebase/database"
+import { getDatabase, ref, set, get, child,push, update } from "firebase/database"
 import { UserAuth } from "../Firebase/context"
 import { useState } from "react"
 
@@ -15,21 +15,6 @@ const Todos = () => {
             "name": "max",
             "email": "test@gmail.com",
             "todos": {
-              1: {
-                "title": "Play Video Games",
-                "status": true,
-                "id": 235
-              },
-              2: {
-                "title": "Learn TypeScript",
-                "status": true,
-                "id": 222
-              },
-              3: {
-                "title": "Learn Firebase",
-                "status": true,
-                "id": 120
-              },
             },
           },
             "XL9zTWPFxkbP0gyArmw8yIVfi0j1": {
@@ -67,6 +52,24 @@ const handleGetTodos = () => {
       }
   }
 
+  const handleUpdateTodo = () => {
+    const todoData = {
+                "title": "Play Video",
+                "status": true,
+                "id": 235
+              }
+
+    const db = getDatabase()
+    console.log('db',db)
+    const newPostKey = push(child(ref(db), `todos/users/${user.uid}/todos`)).key
+      console.log('newpostkey',newPostKey)
+
+    const updates = {}
+    updates[`/todos/users/${user.uid}/todos/${newPostKey}`] = todoData
+
+    return update(ref(db), updates)
+  }
+
   return (
 
     <article className="todos-container">
@@ -86,6 +89,7 @@ const handleGetTodos = () => {
 
       <button onClick={handleAddTodo}>Add to DB</button>
       <button onClick={handleGetTodos}>Get todos from DB</button>
+      <button onClick={handleUpdateTodo}>UpdateTodo</button>
     </article>
   )
 }
