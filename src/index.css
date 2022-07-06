@@ -59,5 +59,8 @@ h1 {
 
 .todos-container button {
   margin-left: 1rem;
+  padding: 1rem;
   height: 2rem;
+  cursor: pointer;
+  line-height: 0.5;
 }
