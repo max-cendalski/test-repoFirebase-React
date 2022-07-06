@@ -8,21 +8,24 @@ const Todos = () => {
   console.log('userfromtodos',user.email)
   const [todos, setTodos] = useState({})
 
-  const handleAddTodo = (title) => {
+  const handleAddTodo = () => {
     const db = getDatabase()
       set(ref(db, 'todos'), {
         "todos": {
-          "one": {
-            "title": "Historical Tech Pioneers",
+          1: {
+            "title": "Play Video Games",
             "status": true,
+            "id": 235
           },
-          "two": {
+          2: {
             "title": "Learn TypeScript",
             "status": true,
+            "id": 222
           },
-          "three": {
+          3: {
             "title": "Learn Firebase",
-            "status": true
+            "status": true,
+            "id": 120
           },
         },
         "users": {
@@ -44,13 +47,13 @@ const handleGetTodos = () => {
   get(child(dbRef, 'todos/todos')).then((snapshot) => {
     if (snapshot.exists()) {
       setTodos(snapshot.val())
-      console.log('todos',todos)
     } else {
       console.log("No data available");
     }
     }).catch((error) => {
       console.error(error);
     })
+      console.log('todoss',todos)
   }
 
   return (
@@ -58,7 +61,7 @@ const handleGetTodos = () => {
       <h1>Todo List</h1>
       {todos &&
           Object.keys(todos).map((obj, index) => {
-          return <section className="todo-item" key={index}>{todos[obj].title}</section>
+          return <section className="todo-item" key={todos[obj].id}>{todos[obj].title}</section>
       })
 
 
