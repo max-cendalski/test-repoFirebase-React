@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, get, child,push, update } from "firebase/database"
+import { getDatabase, ref, set, get, child,push, update, remove } from "firebase/database"
 import { UserAuth } from "../Firebase/context"
 import { useState, useEffect } from "react"
 
@@ -10,17 +10,16 @@ const Todos = () => {
 
   useEffect(()=> {
     const db = ref(getDatabase());
-    get(child(db, `users/${user.uid}`))
-    .then((snapshot) => {
+    get(child(db, `users/${user.uid}`)).then((snapshot) => {
     if (snapshot.exists()) {
-      console.log(snapshot.val());
+      setTodos(snapshot.val().todos)
     } else {
       console.log("No data available");
     }
   }).catch((error) => {
     console.error(error);
   });
-},[])
+})
 
   const handleAddDataToDb = () => {
     const db = getDatabase()
@@ -41,21 +40,21 @@ const Todos = () => {
     )
   }
 
-  const handleAddTodo = () => {
-    const todoData = {
-                "title": "Learn Firebase",
-                "status": true,
-                "id": 211
-              }
-
+  const handleAddTodo = (e) => {
+    e.preventDefault()
     const db = getDatabase()
-    console.log('db',db)
-    const newPostKey = push(child(ref(db), `todos/users/${user.uid}/todos`)).key
-      console.log('newpostkey',newPostKey)
+
+    const newTodoKey = push(child(ref(db), `users/${user.uid}/todos`)).key
+      console.log('newTodokey',newTodoKey)
+
+    const todoData = {
+        "title": todo,
+        "id": newTodoKey
+    }
 
     const updates = {}
-    updates[`/todos/users/${user.uid}/todos/${newPostKey}`] = todoData
-
+    updates[`/users/${user.uid}/todos/${newTodoKey}`] = todoData
+    setTodo('')
     return update(ref(db), updates)
   }
 
@@ -67,7 +66,7 @@ const Todos = () => {
 
 const handleGetTodos = () => {
   const dbRef = ref(getDatabase())
-  get(child(dbRef, `todos/users/${user.uid}/todos`)).then((snapshot) => {
+  get(child(dbRef, `/users/${user.uid}/todos`)).then((snapshot) => {
     if (snapshot.exists()) {
       setTodos(snapshot.val())
     } else {
@@ -82,9 +81,10 @@ const handleGetTodos = () => {
 
 
 
-  const handleDelete = (id) => {
-    console.log("whee", id)
-    const db = getDatabase()
+  const handleDeleteTodo = (id) => {
+    console.log('id',id)
+    const dbRef = ref(getDatabase())
+    remove(child(dbRef, `/users/${user.uid}/todos/${id}`))
 
   }
 
@@ -102,10 +102,8 @@ const handleGetTodos = () => {
                   onClick={() =>{handleTodoClick(todo.id, todo.title)}}
                   className="todo-item"
                   >{todos[todo].title}
-                  <p>key: {Object.hasOwn(todos)} </p>
-
                   </section>
-                  <button onClick={()=> {handleDelete(Object.keys(todos)[1])}} >Delete</button>
+                  <button onClick={()=> {handleDeleteTodo(todos[todo].id)}} >Delete</button>
                 </article>
       })
       }
@@ -118,12 +116,11 @@ const handleGetTodos = () => {
            value={todo}
            ></input>
         </p>
-      <button onClick={handleAddTodo}>Add Todo</button>
+        <button onClick={handleAddTodo}>Add Todo</button>
       </form>
 
       <button onClick={handleAddDataToDb}>ADD DATA TO DB</button>
       <button onClick={handleGetTodos}>Get todos from DB</button>
-      <button onClick={handleDelete}>Delete Todo</button>
     </article>
   )
 }
