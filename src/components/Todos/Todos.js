@@ -79,12 +79,22 @@ const handleGetTodos = () => {
   }
 
 
-
-
   const handleDeleteTodo = (id) => {
     console.log('id',id)
     const dbRef = ref(getDatabase())
     remove(child(dbRef, `/users/${user.uid}/todos/${id}`))
+  }
+
+  const handleEditTodo = (id) => {
+    const db = getDatabase()
+    const todoData = 'whee'
+
+    set(ref(db, `/users/${user.uid}/todos/${id}`),
+    {
+      id,
+      title: todoData
+    }
+    )
 
   }
 
@@ -104,9 +114,10 @@ const handleGetTodos = () => {
                   >{todos[todo].title}
                   </section>
                   <button onClick={()=> {handleDeleteTodo(todos[todo].id)}} >Delete</button>
+                  <button onClick={()=> {handleEditTodo(todos[todo].id)}} >Edit</button>
                 </article>
-      })
-      }
+          })
+        }
 
       <form className="todo-form">
         <p>
