@@ -87,15 +87,11 @@ const handleGetTodos = () => {
 
   const handleEditTodo = (id) => {
     const db = getDatabase()
-    const todoData = 'whee'
+    const todoData = 'Play WoW'
 
-    set(ref(db, `/users/${user.uid}/todos/${id}`),
-    {
-      id,
-      title: todoData
-    }
+    set(ref(db, `/users/${user.uid}/todos/${id}/title`),
+      (todoData)
     )
-
   }
 
   const handleTodoChange = (e) => {
