@@ -59,8 +59,15 @@ h1 {
 
 .todos-container button {
   margin-left: 1rem;
-  padding: 1rem;
-  height: 2rem;
   cursor: pointer;
-  line-height: 0.5;
+  height: 1.4rem;
+}
+
+.todo-form {
+  border: 2px solid grey;
+  margin: 1rem auto;
+  width: 80%;
+}
+.todo-form p {
+  display: inline-block;
 }

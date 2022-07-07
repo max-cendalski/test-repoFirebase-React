@@ -1,15 +1,30 @@
 import { getDatabase, ref, set, get, child,push, update } from "firebase/database"
 import { UserAuth } from "../Firebase/context"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 
 const Todos = () => {
   const {user} = UserAuth()
-  const [todos, setTodos] = useState(null)
+  const [todos, setTodos] = useState([])
+  const [todo, setTodo] = useState('')
 
-  const handleAddTodo = () => {
+  useEffect(()=> {
+    const db = ref(getDatabase());
+    get(child(db, `users/${user.uid}`))
+    .then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+},[])
+
+  const handleAddDataToDb = () => {
     const db = getDatabase()
-      set(ref(db, 'todos'), {
+      set(ref(db), {
         "users": {
           "RKkMoEEsn5ZL0rueUrWsPIT2e912": {
             "name": "max",
@@ -26,37 +41,11 @@ const Todos = () => {
     )
   }
 
-
-  const handleTodoClick = (id,title) => {
-    console.log('id:',id)
-    console.log('title:',title)
-  }
-  const handleDeleteTodo = (id) => {
-    console.log('whee')
-  }
-
-const handleGetTodos = () => {
-  const dbRef = ref(getDatabase())
-  get(child(dbRef, `todos/users/${user.uid}`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      console.log('snapshot',snapshot.val())
-      setTodos(snapshot.val().todos)
-    } else {
-      console.log("No data available");
-    }
-    }).catch((error) => {
-      console.error(error);
-    })
-      if(todos) {
-        console.log('todos.email',todos)
-      }
-  }
-
-  const handleUpdateTodo = () => {
+  const handleAddTodo = () => {
     const todoData = {
-                "title": "Learn TypeScript",
+                "title": "Learn Firebase",
                 "status": true,
-                "id": 235
+                "id": 211
               }
 
     const db = getDatabase()
@@ -70,35 +59,70 @@ const handleGetTodos = () => {
     return update(ref(db), updates)
   }
 
-
-  const handleDelete = () => {
-    console.log("whee")
-    const db = getDatabase()
-    const newPostKey = push(child(ref(db), `todos/users/${user.uid}/todos`)).key
-    console.log('newPost',newPostKey)
+  const handleTodoClick = (id,title) => {
+    console.log('id:',id)
+    console.log('title:',title)
   }
 
+
+const handleGetTodos = () => {
+  const dbRef = ref(getDatabase())
+  get(child(dbRef, `todos/users/${user.uid}/todos`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      setTodos(snapshot.val())
+    } else {
+      console.log("No data available");
+    }
+    }).catch((error) => {
+      console.error(error);
+    })
+    console.log('todos',todos)
+  }
+
+
+
+
+  const handleDelete = (id) => {
+    console.log("whee", id)
+    const db = getDatabase()
+
+  }
+
+  const handleTodoChange = (e) => {
+    setTodo(e.target.value)
+  }
 
   return (
     <article className="todos-container">
       <h1>Todo List</h1>
        {todos &&
           Object.keys(todos).map((todo, index) => {
-          return <article className="todos-container" key={Object.keys(todos)}>
-                   <section
-                    onClick={() =>{handleTodoClick(todo.id, todo.title)}}
-                    className="todo-item"
-                    >{todos[todo].title}
-                   </section>
-                   <button onClick={handleDeleteTodo} >Delete</button>
-                  </article>
+          return <article className="todos-container" key={index}>
+                  <section
+                  onClick={() =>{handleTodoClick(todo.id, todo.title)}}
+                  className="todo-item"
+                  >{todos[todo].title}
+                  <p>key: {Object.hasOwn(todos)} </p>
 
+                  </section>
+                  <button onClick={()=> {handleDelete(Object.keys(todos)[1])}} >Delete</button>
+                </article>
       })
       }
 
-      <button onClick={handleAddTodo}>Add to DB</button>
+      <form className="todo-form">
+        <p>
+          <label htmlFor="">Todo</label>
+          <input onChange={handleTodoChange}
+           type="text"
+           value={todo}
+           ></input>
+        </p>
+      <button onClick={handleAddTodo}>Add Todo</button>
+      </form>
+
+      <button onClick={handleAddDataToDb}>ADD DATA TO DB</button>
       <button onClick={handleGetTodos}>Get todos from DB</button>
-      <button onClick={handleUpdateTodo}>UpdateTodo</button>
       <button onClick={handleDelete}>Delete Todo</button>
     </article>
   )
