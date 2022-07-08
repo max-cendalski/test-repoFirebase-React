@@ -1,6 +1,7 @@
 import { getDatabase, ref, set, get, child,push, update, remove } from "firebase/database"
 import { UserAuth } from "../Firebase/context"
 import { useState, useEffect } from "react"
+import Loading from "../Loading/Loading"
 
 
 const Todos = () => {
@@ -10,7 +11,8 @@ const Todos = () => {
 
   useEffect(()=> {
     const db = ref(getDatabase());
-    get(child(db, `users/${user.uid}`)).then((snapshot) => {
+    setTimeout(() => {
+       get(child(db, `users/${user.uid}`)).then((snapshot) => {
     if (snapshot.exists()) {
       setTodos(snapshot.val().todos)
     } else {
@@ -19,6 +21,9 @@ const Todos = () => {
   }).catch((error) => {
     console.error(error);
   });
+
+    },2000)
+
 })
 
   const handleAddDataToDb = () => {
@@ -97,7 +102,7 @@ const handleGetTodos = () => {
   const handleTodoChange = (e) => {
     setTodo(e.target.value)
   }
-
+  if (todos.length == 0 ) return (<Loading />)
   return (
     <article className="todos-container">
       <h1>Todo List</h1>
