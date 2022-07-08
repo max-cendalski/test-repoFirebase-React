@@ -1,8 +1,17 @@
+import { useState, useEffect } from "react"
 
 
 const Loading = () => {
+  const [loadingClass, setLoadingClass] = useState('loading-element')
+  useEffect(()=> {
+    setInterval(()=> {
+      setLoadingClass('loading-element-two')
+    })
+  },[])
   return (
-    <h1>Loading...</h1>
+    <div className={loadingClass}>
+
+    </div>
   )
 }
 

@@ -71,3 +71,27 @@ h1 {
 .todo-form p {
   display: inline-block;
 }
+
+.loading-element {
+  margin: 5rem auto;
+  width: 5rem;
+  height: 5rem;
+  border-top: 10px solid rgb(73, 196, 73);
+  border-bottom: 10px solid rgb(73,196,73);
+  border-left:  10px solid rgb(223, 55, 55);
+  border-right:  10px solid rgb(223,55,55);
+  border-radius: 50%;
+}
+
+.loading-element-two {
+  margin: 5rem auto;
+  width: 5rem;
+  height: 5rem;
+  border-left: 10px solid rgb(73, 196, 73);
+  border-right: 10px solid rgb(73, 196, 73);
+  border-top: 10px solid rgb(223, 55, 55);
+  border-bottom: 10px solid rgb(223, 55, 55);
+  border-radius: 50%;
+  transition: 6s ;
+  transform: rotate(360deg);
+}

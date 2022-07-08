@@ -11,20 +11,16 @@ const Todos = () => {
 
   useEffect(()=> {
     const db = ref(getDatabase());
-    setTimeout(() => {
-       get(child(db, `users/${user.uid}`)).then((snapshot) => {
+    get(child(db, `users/${user.uid}`)).then((snapshot) => {
     if (snapshot.exists()) {
       setTodos(snapshot.val().todos)
     } else {
       console.log("No data available");
     }
-  }).catch((error) => {
-    console.error(error);
-  });
-
-    },2000)
-
-})
+    }).catch((error) => {
+      console.error(error);
+    });
+  })
 
   const handleAddDataToDb = () => {
     const db = getDatabase()
