@@ -5,8 +5,7 @@ import { UserAuth } from '../Firebase/context';
 
 const Navigation = () => {
   const navigate = useNavigate()
- const {user, logout} = UserAuth()
-   console.log('userauthgg',user)
+  const {user, logout} = UserAuth()
 
   const handleLogout = async () => {
     try {

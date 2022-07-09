@@ -22,7 +22,7 @@ const Todos = () => {
     if (snapshot.exists()) {
       setTodos(snapshot.val().todos)
     } else {
-      console.log("No data available");
+      console.log("No data availablee");
     }
     }).catch((error) => {
       console.error(error);
@@ -77,27 +77,18 @@ const handleGetTodos = () => {
     }).catch((error) => {
       console.error(error);
     })
-    console.log('todos',todos)
   }
 
-
   const handleDeleteTodo = (id) => {
-    console.log('id',id)
     const dbRef = ref(getDatabase())
     remove(child(dbRef, `/users/${user.uid}/todos/${id}`))
   }
 
   const handleEditTodo = (id,title) => {
-    const db = getDatabase()
-    console.log('id',id)
-    console.log('titleTOEdit',titleToEdit)
     setModal('display-modal-clicked')
     setTodosContainer('invisible')
     setTitleToEdit(title)
     setIdToEdit(id)
-  /*   set(ref(db, `/users/${user.uid}/todos/${id}/title`),
-      (todoData)
-    ) */
   }
 
   const handleCancelModal = () => {
@@ -116,11 +107,7 @@ const handleGetTodos = () => {
   const handleSubmitEdit = e => {
     e.preventDefault()
     const db = getDatabase()
-
-    console.log('maybe')
-    console.log('id,titlToEdit',idToEdit,titleToEdit)
-    set(ref(db, `/users/${user.uid}/todos/${idToEdit}/title`),
-    (titleToEdit))
+    set(ref(db, `/users/${user.uid}/todos/${idToEdit}/title`),(titleToEdit))
     setModal('display-modal')
     setTodosContainer('todos-container')
   }
