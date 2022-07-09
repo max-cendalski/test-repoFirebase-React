@@ -69,6 +69,11 @@ h1 {
   margin-top: 1.3rem;
 }
 
+.todo-item button:hover {
+  background-color: grey;
+  color: white;
+}
+
 .todos-container button {
   margin-left: 1rem;
   cursor: pointer;
