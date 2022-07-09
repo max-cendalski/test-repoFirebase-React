@@ -97,7 +97,8 @@ const Todos = () => {
             return <article className={todosContainer} key={index}>
                     <section
                        className="todo-item"
-                     >{todos[todo].title}
+                     >
+                     <h3>{todos[todo].title}</h3>
                      <button onClick={()=> {handleEditTodo(todos[todo].id, todos[todo].title)}} >Edit</button>
                      <button onClick={()=> {handleDeleteTodo(todos[todo].id)}} >Delete</button>
                     </section>

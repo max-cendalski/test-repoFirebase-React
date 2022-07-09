@@ -48,16 +48,19 @@ h1 {
 
 .todo-item {
   display: inline-block;
-  width: 30%;
+  width: 40%;
   border: 1px solid black;
   padding: 1rem;
   margin: 1rem auto;
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
-
+.todo-item h3 {
+  display: inline-block;
+  margin-right: 4rem;
+}
 .todo-item:hover {
-  width: 31%;
+  width: 41%;
   font-weight: 500;
 }
 
@@ -75,6 +78,7 @@ h1 {
 
 .todo-form p {
   display: inline-block;
+  margin-right: 2rem;
 }
 
 .loading-element {
