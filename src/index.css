@@ -41,6 +41,10 @@ h1 {
   margin: 2rem auto;
   width: 80%;
 }
+.todos-container {
+  width: 90%;
+  position: relative;
+}
 
 .todo-item {
   display: inline-block;
@@ -98,25 +102,24 @@ h1 {
 }
 
 .display-modal {
-    visibility: collapse;
+    visibility:hidden;
     width: 30%;
     border: 1px solid black;
     padding: 1rem;
     background-color: white;
-    margin: 1rem auto;
 }
 
 .display-modal-clicked {
   position: absolute;
   background-color: white;
-  width: 30%;
+  width: 60%;
   height: 4rem;
   padding: 1rem;
   line-height: 3.6;
-  top: 50%; left: 0; right: 0;
+  top: 70%;
   border: 2px solid grey;
-  transition: all 0.2s linear;
-  transform: translate(100%, 50%);
+  transition: all 0.3s linear;
+  transform: translate(30%, 70%);
 }
 
 .invisible {

@@ -14,6 +14,7 @@ const Todos = () => {
   const [modal, setModal] = useState('display-modal')
   const [todosContainer, setTodosContainer] = useState('todos-container')
   const [titleToEdit, setTitleToEdit] = useState('')
+  const [idToEdit, setIdToEdit] = useState('')
 
   useEffect(()=> {
     const db = ref(getDatabase());
@@ -89,9 +90,11 @@ const handleGetTodos = () => {
   const handleEditTodo = (id,title) => {
     const db = getDatabase()
     console.log('id',id)
-    setTodosContainer('invisible')
+    console.log('titleTOEdit',titleToEdit)
     setModal('display-modal-clicked')
+    setTodosContainer('invisible')
     setTitleToEdit(title)
+    setIdToEdit(id)
   /*   set(ref(db, `/users/${user.uid}/todos/${id}/title`),
       (todoData)
     ) */
@@ -101,8 +104,21 @@ const handleGetTodos = () => {
     setModal('display-modal')
     setTodosContainer('todos-container')
   }
-  const handleTodoChange = (e) => {
+
+  const handleTodoChange = e => {
     setTodo(e.target.value)
+  }
+
+  const handleEditInputChange = e => {
+    setTitleToEdit(e.target.value)
+  }
+
+  const handleSubmitEdit = e => {
+    e.preventDefault()
+    console.log('maybe')
+    console.log('id,titlToEdit',idToEdit,titleToEdit)
+    // set(ref(db, `/users/${user.uid}/todos/${id}/title`),
+    //(titleToEdit)
   }
 
   if (todos.length == 0 ) return (<Loading />)
@@ -133,7 +149,10 @@ const handleGetTodos = () => {
         }
         <Modal modal={modal}
                handleCancelModal={handleCancelModal}
+               handleEditInputChange={handleEditInputChange}
+               handleSubmitEdit={handleSubmitEdit}
                title={titleToEdit}
+
         />
     </article>
   )
