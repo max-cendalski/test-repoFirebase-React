@@ -2,12 +2,18 @@ import { getDatabase, ref, set, get, child,push, update, remove } from "firebase
 import { UserAuth } from "../Firebase/context"
 import { useState, useEffect } from "react"
 import Loading from "../Loading/Loading"
+import Modal from "../Modal/Modal"
 
 
 const Todos = () => {
   const {user} = UserAuth()
   const [todos, setTodos] = useState([])
   const [todo, setTodo] = useState('')
+  const [todoItem, setTodoItem] = useState('todo-item')
+  const [todoForm, setTodoFormClass] = useState('todo-form')
+  const [modal, setModal] = useState('display-modal')
+  const [todosContainer, setTodosContainer] = useState('todos-container')
+  const [titleToEdit, setTitleToEdit] = useState('')
 
   useEffect(()=> {
     const db = ref(getDatabase());
@@ -59,12 +65,6 @@ const Todos = () => {
     return update(ref(db), updates)
   }
 
-  const handleTodoClick = (id,title) => {
-    console.log('id:',id)
-    console.log('title:',title)
-  }
-
-
 const handleGetTodos = () => {
   const dbRef = ref(getDatabase())
   get(child(dbRef, `/users/${user.uid}/todos`)).then((snapshot) => {
@@ -86,37 +86,29 @@ const handleGetTodos = () => {
     remove(child(dbRef, `/users/${user.uid}/todos/${id}`))
   }
 
-  const handleEditTodo = (id) => {
+  const handleEditTodo = (id,title) => {
     const db = getDatabase()
-    const todoData = 'Play WoW'
-
-    set(ref(db, `/users/${user.uid}/todos/${id}/title`),
+    console.log('id',id)
+    setTodosContainer('invisible')
+    setModal('display-modal-clicked')
+    setTitleToEdit(title)
+  /*   set(ref(db, `/users/${user.uid}/todos/${id}/title`),
       (todoData)
-    )
+    ) */
   }
 
+  const handleCancelModal = () => {
+    setModal('display-modal')
+    setTodosContainer('todos-container')
+  }
   const handleTodoChange = (e) => {
     setTodo(e.target.value)
   }
+
   if (todos.length == 0 ) return (<Loading />)
   return (
     <article className="todos-container">
-      <h1>Todo List</h1>
-       {todos &&
-          Object.keys(todos).map((todo, index) => {
-          return <article className="todos-container" key={index}>
-                  <section
-                  onClick={() =>{handleTodoClick(todo.id, todo.title)}}
-                  className="todo-item"
-                  >{todos[todo].title}
-                  </section>
-                  <button onClick={()=> {handleDeleteTodo(todos[todo].id)}} >Delete</button>
-                  <button onClick={()=> {handleEditTodo(todos[todo].id)}} >Edit</button>
-                </article>
-          })
-        }
-
-      <form className="todo-form">
+        <form className={todoForm}>
         <p>
           <label htmlFor="">Todo</label>
           <input onChange={handleTodoChange}
@@ -126,9 +118,23 @@ const handleGetTodos = () => {
         </p>
         <button onClick={handleAddTodo}>Add Todo</button>
       </form>
-
-      <button onClick={handleAddDataToDb}>ADD DATA TO DB</button>
-      <button onClick={handleGetTodos}>Get todos from DB</button>
+      <h1>Todo List</h1>
+       {todos &&
+          Object.keys(todos).map((todo, index) => {
+          return <article className={todosContainer} key={index}>
+                  <section
+                    className={todoItem}
+                    >{todos[todo].title}
+                    <button onClick={()=> {handleEditTodo(todos[todo].id, todos[todo].title)}} >Edit</button>
+                    <button onClick={()=> {handleDeleteTodo(todos[todo].id)}} >Delete</button>
+                  </section>
+                </article>
+          })
+        }
+        <Modal modal={modal}
+               handleCancelModal={handleCancelModal}
+               title={titleToEdit}
+        />
     </article>
   )
 }
@@ -172,3 +178,7 @@ export default Todos
           return <section className="todo-item" key={todos[obj].id}>{todos[obj].title}</section>
       })
       } */
+
+
+/*        <button onClick={handleAddDataToDb}>ADD DATA TO DB</button>
+      <button onClick={handleGetTodos}>Get todos from DB</button> */
