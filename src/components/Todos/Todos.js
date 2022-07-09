@@ -9,8 +9,6 @@ const Todos = () => {
   const {user} = UserAuth()
   const [todos, setTodos] = useState([])
   const [todo, setTodo] = useState('')
-  const [todoItem, setTodoItem] = useState('todo-item')
-  const [todoForm, setTodoFormClass] = useState('todo-form')
   const [modal, setModal] = useState('display-modal')
   const [todosContainer, setTodosContainer] = useState('todos-container')
   const [titleToEdit, setTitleToEdit] = useState('')
@@ -29,24 +27,6 @@ const Todos = () => {
     });
   })
 
-  const handleAddDataToDb = () => {
-    const db = getDatabase()
-      set(ref(db), {
-        "users": {
-          "RKkMoEEsn5ZL0rueUrWsPIT2e912": {
-            "name": "max",
-            "email": "test@gmail.com",
-            "todos": {
-            },
-          },
-            "XL9zTWPFxkbP0gyArmw8yIVfi0j1": {
-            "name": "arek",
-            "email": "olb@gmail.com"
-          },
-        }
-      }
-    )
-  }
 
   const handleAddTodo = (e) => {
     e.preventDefault()
@@ -66,18 +46,6 @@ const Todos = () => {
     return update(ref(db), updates)
   }
 
-const handleGetTodos = () => {
-  const dbRef = ref(getDatabase())
-  get(child(dbRef, `/users/${user.uid}/todos`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      setTodos(snapshot.val())
-    } else {
-      console.log("No data available");
-    }
-    }).catch((error) => {
-      console.error(error);
-    })
-  }
 
   const handleDeleteTodo = (id) => {
     const dbRef = ref(getDatabase())
@@ -112,10 +80,11 @@ const handleGetTodos = () => {
     setTodosContainer('todos-container')
   }
 
-  if (todos.length == 0 ) return (<Loading />)
+  if (todos.length === 0 ) return (<Loading />)
   return (
     <article className="todos-container">
-        <form className={todoForm}>
+        <h1>Add Todo</h1>
+        <form className='todo-form'>
         <p>
           <label htmlFor="">Todo</label>
           <input onChange={handleTodoChange}
@@ -130,7 +99,7 @@ const handleGetTodos = () => {
           Object.keys(todos).map((todo, index) => {
           return <article className={todosContainer} key={index}>
                   <section
-                    className={todoItem}
+                    className="todo-item"
                     >{todos[todo].title}
                     <button onClick={()=> {handleEditTodo(todos[todo].id, todos[todo].title)}} >Edit</button>
                     <button onClick={()=> {handleDeleteTodo(todos[todo].id)}} >Delete</button>
@@ -192,3 +161,37 @@ export default Todos
 
 /*        <button onClick={handleAddDataToDb}>ADD DATA TO DB</button>
       <button onClick={handleGetTodos}>Get todos from DB</button> */
+
+
+// TO CREATE DB
+/*       const handleAddDataToDb = () => {
+    const db = getDatabase()
+      set(ref(db), {
+        "users": {
+          "RKkMoEEsn5ZL0rueUrWsPIT2e912": {
+            "name": "max",
+            "email": "test@gmail.com",
+            "todos": {
+            },
+          },
+            "XL9zTWPFxkbP0gyArmw8yIVfi0j1": {
+            "name": "arek",
+            "email": "olb@gmail.com"
+          },
+        }
+      }
+    )
+  } */
+
+/*   const handleGetTodos = () => {
+  const dbRef = ref(getDatabase())
+  get(child(dbRef, `/users/${user.uid}/todos`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      setTodos(snapshot.val())
+    } else {
+      console.log("No data available");
+    }
+    }).catch((error) => {
+      console.error(error);
+    })
+  } */
