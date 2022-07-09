@@ -72,6 +72,9 @@ h1 {
 .todo-item button:hover {
   background-color: grey;
   color: white;
+  transform: scale(1.2,1.2);
+  border: none;
+
 }
 
 .todos-container button {
@@ -134,6 +137,13 @@ h1 {
   border: 2px solid grey;
   transition: all 0.3s linear;
   transform: translate(30%, 70%);
+}
+
+.display-modal-clicked button:hover {
+  background-color: grey;
+  color: white;
+  transform: scale(1.2,1.2);
+  border: none;
 }
 
 .invisible {
