@@ -115,10 +115,14 @@ const handleGetTodos = () => {
 
   const handleSubmitEdit = e => {
     e.preventDefault()
+    const db = getDatabase()
+
     console.log('maybe')
     console.log('id,titlToEdit',idToEdit,titleToEdit)
-    // set(ref(db, `/users/${user.uid}/todos/${id}/title`),
-    //(titleToEdit)
+    set(ref(db, `/users/${user.uid}/todos/${idToEdit}/title`),
+    (titleToEdit))
+    setModal('display-modal')
+    setTodosContainer('todos-container')
   }
 
   if (todos.length == 0 ) return (<Loading />)
