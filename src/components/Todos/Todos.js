@@ -31,9 +31,7 @@ const Todos = () => {
   const handleAddTodo = (e) => {
     e.preventDefault()
     const db = getDatabase()
-
     const newTodoKey = push(child(ref(db), `users/${user.uid}/todos`)).key
-      console.log('newTodokey',newTodoKey)
 
     const todoData = {
         "title": todo,
@@ -45,7 +43,6 @@ const Todos = () => {
     setTodo('')
     return update(ref(db), updates)
   }
-
 
   const handleDeleteTodo = (id) => {
     const dbRef = ref(getDatabase())
@@ -85,26 +82,26 @@ const Todos = () => {
     <article className="todos-container">
         <h1>Add Todo</h1>
         <form className='todo-form'>
-        <p>
-          <label htmlFor="">Todo</label>
-          <input onChange={handleTodoChange}
-           type="text"
-           value={todo}
-           ></input>
-        </p>
-        <button onClick={handleAddTodo}>Add Todo</button>
-      </form>
-      <h1>Todo List</h1>
-       {todos &&
+          <p>
+            <label htmlFor="">Todo</label>
+            <input onChange={handleTodoChange}
+            type="text"
+            value={todo}
+            ></input>
+          </p>
+          <button onClick={handleAddTodo}>Add Todo</button>
+        </form>
+        <h1>Todo List</h1>
+        {todos &&
           Object.keys(todos).map((todo, index) => {
-          return <article className={todosContainer} key={index}>
-                  <section
-                    className="todo-item"
-                    >{todos[todo].title}
-                    <button onClick={()=> {handleEditTodo(todos[todo].id, todos[todo].title)}} >Edit</button>
-                    <button onClick={()=> {handleDeleteTodo(todos[todo].id)}} >Delete</button>
-                  </section>
-                </article>
+            return <article className={todosContainer} key={index}>
+                    <section
+                       className="todo-item"
+                     >{todos[todo].title}
+                     <button onClick={()=> {handleEditTodo(todos[todo].id, todos[todo].title)}} >Edit</button>
+                     <button onClick={()=> {handleDeleteTodo(todos[todo].id)}} >Delete</button>
+                    </section>
+                   </article>
           })
         }
         <Modal modal={modal}
@@ -112,7 +109,6 @@ const Todos = () => {
                handleEditInputChange={handleEditInputChange}
                handleSubmitEdit={handleSubmitEdit}
                title={titleToEdit}
-
         />
     </article>
   )
@@ -120,11 +116,8 @@ const Todos = () => {
 
 export default Todos
 
-/*     {todos &&
-          Object.keys(todos).map((obj, index) => {
-          return <section className="todo-item" key={todos[obj].id}>{todos[obj].title}</section>
-      })
- */
+
+      // FROM FIREBASE DOCS
 // An index to track Ada's memberships
 /* {
   "users": {
@@ -182,6 +175,8 @@ export default Todos
       }
     )
   } */
+
+  //TO GET DB FROM FIREBASE
 
 /*   const handleGetTodos = () => {
   const dbRef = ref(getDatabase())
