@@ -146,6 +146,10 @@ h1 {
   border: none;
 }
 
+.image-container {
+  width: 100px;
+  height: 100px;
+}
 .invisible {
   display: none;
 }

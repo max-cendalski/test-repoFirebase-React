@@ -1,18 +1,30 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
+import { useState,useEffect } from 'react';
 import { UserAuth } from '../Firebase/context';
 import Todos from '../Todos/Todos'
-import { getStorage, ref } from 'firebase/storage';
+import { getStorage, ref, getDownloadURL, listAll, list } from 'firebase/storage';
 
 const Account = () => {
- const storage = getStorage()
-  const storageRef = ref(storage)
+   const {user, logout} = UserAuth()
+   const [imagesList, setImagesList] = useState([])
+
+   const navigate = useNavigate()
 
 
-  const {user, logout} = UserAuth()
-  const navigate = useNavigate()
+   const storage = getStorage()
+   const imagesRef = ref(storage, 'images/')
 
-  const picRef = ref(storageRef, 'George11.jpg')
+useEffect(()=> {
+  listAll(imagesRef)
+  .then((response) => {
+    response.items.forEach((item) => {
+      getDownloadURL(item).then((url)=> {
+        setImagesList((prev) => [...prev,url])
+      })
+    })
+  })
+},[])
 
 
   const handleLogout = async () => {
@@ -29,7 +41,7 @@ const Account = () => {
     <article className='account-container'>
       <h1>Account</h1>
       <p>User Email: {user && user.email}</p>
-      <img src={picRef} alt="George"></img>
+      <img className="image-container" src={imagesList[1]} alt="George"></img>
       <button onClick={handleLogout}>Logout</button>
       <hr />
       <Todos />
