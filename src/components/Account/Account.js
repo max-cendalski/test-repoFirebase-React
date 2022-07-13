@@ -12,20 +12,19 @@ const Account = () => {
 
    const navigate = useNavigate()
 
-
    const storage = getStorage()
    const imagesRef = ref(storage, 'images/')
 
-useEffect(()=> {
-  listAll(imagesRef)
-  .then((response) => {
-    response.items.forEach((item) => {
-      getDownloadURL(item).then((url)=> {
-        setImagesList((prev) => [...prev,url])
+    useEffect(()=> {
+      listAll(imagesRef)
+      .then((response) => {
+        response.items.forEach((item) => {
+          getDownloadURL(item).then((url)=> {
+            setImagesList((prev) => [...prev,url])
+          })
+        })
       })
-    })
-  })
-},[])
+    },[])
 
 
   const handleLogout = async () => {
@@ -42,7 +41,7 @@ useEffect(()=> {
     <article className='account-container'>
       <h1>Account</h1>
       <p>User Email: {user && user.email}</p>
-      <img className="image-container" src={imagesList[1]} alt="George"></img>
+      <img className="image-container" src={imagesList[0]} alt="George"></img>
       <button onClick={handleLogout}>Logout</button>
       <hr />
       <Todos />
