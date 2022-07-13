@@ -4,6 +4,7 @@ import { useState,useEffect } from 'react';
 import { UserAuth } from '../Firebase/context';
 import Todos from '../Todos/Todos'
 import { getStorage, ref, getDownloadURL, listAll, list } from 'firebase/storage';
+import Loading from '../Loading/Loading';
 
 const Account = () => {
    const {user, logout} = UserAuth()
@@ -36,7 +37,7 @@ useEffect(()=> {
       console.log(e.message)
     }
   }
-
+  if (imagesList.length === 0) return  (<Loading />)
   return (
     <article className='account-container'>
       <h1>Account</h1>

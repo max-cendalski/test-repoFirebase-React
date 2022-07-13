@@ -1,7 +1,6 @@
 import { getDatabase, ref, set, get, child,push, update, remove } from "firebase/database"
 import { UserAuth } from "../Firebase/context"
 import { useState, useEffect } from "react"
-import Loading from "../Loading/Loading"
 import Modal from "../Modal/Modal"
 
 
@@ -77,7 +76,6 @@ const Todos = () => {
     setTodosContainer('todos-container')
   }
 
-  if (todos.length === 0 ) return (<Loading />)
   return (
     <article className="todos-container">
         <h1>Add Todo</h1>
