@@ -41,7 +41,7 @@ const Account = () => {
     <article className='account-container'>
       <h1>Account</h1>
       <p>User Email: {user && user.email}</p>
-      <img className="image-container" src={imagesList[0]} alt="George"></img>
+      <img className="image-container" src={imagesList[1]} alt="George"></img>
       <button onClick={handleLogout}>Logout</button>
       <hr />
       <Todos />
