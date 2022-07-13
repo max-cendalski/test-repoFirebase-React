@@ -9,22 +9,23 @@ import Loading from '../Loading/Loading';
 const Account = () => {
    const {user, logout} = UserAuth()
    const [imagesList, setImagesList] = useState([])
+   const [image, setImage] = useState('')
 
    const navigate = useNavigate()
 
    const storage = getStorage()
    const imagesRef = ref(storage, 'images/')
+   const geImg = ref(storage,'images/George11.jpg')
+   console.log('geIm.fullPath',geImg.fullPath)
 
     useEffect(()=> {
-      listAll(imagesRef)
-      .then((response) => {
-        response.items.forEach((item) => {
-          getDownloadURL(item).then((url)=> {
-            setImagesList((prev) => [...prev,url])
-          })
-        })
+      getDownloadURL(ref(storage, geImg))
+      .then((url) => {
+        console.log('url',url)
+        setImage(url)
       })
-    },[])
+
+    })
 
 
   const handleLogout = async () => {
@@ -36,12 +37,13 @@ const Account = () => {
       console.log(e.message)
     }
   }
-  if (imagesList.length === 0) return  (<Loading />)
+  if (image.length === 0) return  (<Loading />)
   return (
     <article className='account-container'>
       <h1>Account</h1>
       <p>User Email: {user && user.email}</p>
-      <img className="image-container" src={imagesList[1]} alt="George"></img>
+      <section ></section>
+      <img className="image-container" src={image} alt="George"></img>
       <button onClick={handleLogout}>Logout</button>
       <hr />
       <Todos />
@@ -50,3 +52,17 @@ const Account = () => {
 }
 
 export default Account;
+
+// RENDERING LIST OF ALL IMAGES
+/*     useEffect(()=> {
+
+      listAll(imagesRef)
+      .then((response) => {
+        response.items.forEach((item) => {
+          getDownloadURL(item).then((url)=> {
+            setImagesList((prev) => [...prev,url])
+          })
+        })
+      })
+    },[])
+ */
