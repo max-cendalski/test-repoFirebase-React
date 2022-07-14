@@ -21,6 +21,8 @@ const Account = ({uid}) => {
       getDownloadURL(ref(storage, `users/${user.uid}`))
           .then((url) => {
           setImage(url)
+      }).catch(err => {
+          console.log('ERROR',err)
       })
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
