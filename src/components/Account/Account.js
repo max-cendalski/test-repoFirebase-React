@@ -5,7 +5,7 @@ import { useState,useEffect } from 'react';
 
 import Todos from '../Todos/Todos'
 import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
-import Loading from '../Loading/Loading';
+//import Loading from '../Loading/Loading';
 
 const Account = ({uid}) => {
    const {user, logout} = UserAuth()
@@ -20,8 +20,9 @@ const Account = ({uid}) => {
     useEffect(() => {
       getDownloadURL(ref(storage, `users/${user.uid}`))
           .then((url) => {
-        setImage(url)
+          setImage(url)
       })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
 
