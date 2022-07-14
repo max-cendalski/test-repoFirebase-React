@@ -3,27 +3,23 @@ import { useNavigate} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import { UserAuth } from '../Firebase/context';
 import Todos from '../Todos/Todos'
-import { getStorage, ref, getDownloadURL, listAll, list, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import Loading from '../Loading/Loading';
+import {v4} from 'uuid'
 
 const Account = () => {
    const {user, logout} = UserAuth()
    const [imagesList, setImagesList] = useState([])
    const [image, setImage] = useState('')
-  const  [imageUpload, setImageUpload] = useState(null)
-
-
-   const fileInputRef = React.createRef()
-
+   const [imageUpload, setImageUpload] = useState(null)
+   const [imageUrl, setImageUrls] = useState([])
    const navigate = useNavigate()
 
    const storage = getStorage()
-   const imagesRef = ref(storage, 'newfiles/'+ fileInputRef)
 
    const geImg = ref(storage,'images/George11.jpg')
 
 
-   const newImgRef = ref(storage, 'newfiles')
 
     useEffect(()=> {
       getDownloadURL(ref(storage, geImg))
@@ -33,7 +29,23 @@ const Account = () => {
       })
     },[])
 
-  const handleFileUpload = e => {
+
+  const uploadFile = () => {
+    if (imageUpload == null) return;
+   const newFilesList = ref(storage, 'newfiles/')
+
+    const imageRef = ref(storage, `${newFilesList}/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(ref(storage, geImg))
+      .then((url) => {
+        setImage(url)
+      });
+      console.log('wheeee')
+    });
+  };
+
+
+/*   const handleFileUpload = e => {
     //e.preventDefault()
     const formData = new FormData();
     formData.append('testImage',fileInputRef);
@@ -49,9 +61,8 @@ const Account = () => {
       console.log('bingo')
     }
 
-
   }
-
+ */
 
 
   const handleLogout = async () => {
@@ -77,10 +88,11 @@ const Account = () => {
       <input
         type="file"
         onChange={(event) => {
+          console.log('event.target',event.target.files[0])
           setImageUpload(event.target.files[0]);
         }}
       />
-      <button onClick={uploadFile}> Upload Image</button>
+      <button onClick={uploadFile}> Upload my Image</button>
 
 
       </section>
@@ -104,3 +116,20 @@ export default Account;
       })
     },[])
  */
+
+
+    // UPLOADO WITH RENDER
+
+
+/*   const uploadFile = () => {
+    if (imageUpload == null) return;
+   const newFilesList = ref(storage, 'newfiles/')
+
+    const imageRef = ref(storage, `${newFilesList}/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+       getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrls((prev) => [...prev, url]);
+      });
+      console.log('wheeee')
+    });
+  }; */
