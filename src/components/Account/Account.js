@@ -1,30 +1,25 @@
-import React from 'react';
+import React from 'react'
+import { UserAuth } from '../Firebase/context';
 import { useNavigate} from 'react-router-dom';
 import { useState,useEffect } from 'react';
-import { UserAuth } from '../Firebase/context';
+
 import Todos from '../Todos/Todos'
 import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import Loading from '../Loading/Loading';
-import {v4} from 'uuid'
 
-const Account = () => {
+const Account = ({uid}) => {
    const {user, logout} = UserAuth()
-   const [imagesList, setImagesList] = useState([])
+   //const [imagesList, setImagesList] = useState([])
    const [image, setImage] = useState('')
    const [imageUpload, setImageUpload] = useState(null)
-   const [imageUrl, setImageUrls] = useState([])
    const navigate = useNavigate()
 
    const storage = getStorage()
+   const geImg = ref(storage,`users/${user.uid}`)
 
-   const geImg = ref(storage,'images/George11.jpg')
-
-
-
-    useEffect(()=> {
-      getDownloadURL(ref(storage, geImg))
-      .then((url) => {
-        console.log('url',url)
+    useEffect(() => {
+      getDownloadURL(ref(storage, `users/${user.uid}`))
+          .then((url) => {
         setImage(url)
       })
     },[])
@@ -32,38 +27,14 @@ const Account = () => {
 
   const uploadFile = () => {
     if (imageUpload == null) return;
-   const newFilesList = ref(storage, 'newfiles/')
-
-    const imageRef = ref(storage, `${newFilesList}/${imageUpload.name + v4()}`);
+    const imageRef = ref(storage, `users/${user.uid}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(ref(storage, geImg))
       .then((url) => {
         setImage(url)
       });
-      console.log('wheeee')
     });
   };
-
-
-/*   const handleFileUpload = e => {
-    //e.preventDefault()
-    const formData = new FormData();
-    formData.append('testImage',fileInputRef);
-    console.log('fileInputRef',fileInputRef)
-    if (fileInputRef.current.files.length === 0) {
-      console.log('whehe')
-    } else {
-        uploadBytes(imagesRef, formData)
-        .then((snapshot) => {
-      console.log('Uploaded a file!')
-    })
-
-      console.log('bingo')
-    }
-
-  }
- */
-
 
   const handleLogout = async () => {
     try {
@@ -74,7 +45,7 @@ const Account = () => {
       console.log(e.message)
     }
   }
-  if (image.length === 0) return  (<Loading />)
+  //if (image.length === 0) return  (<Loading />)
   return (
     <article className='account-container'>
       <h1>Account</h1>
@@ -133,3 +104,11 @@ export default Account;
       console.log('wheeee')
     });
   }; */
+
+
+ /*     console.log('uid',uid)
+      getDownloadURL(ref(storage, `users/${uid}`))
+      .then((url) => {
+        console.log('url',url)
+        setImage(url)
+      }) */

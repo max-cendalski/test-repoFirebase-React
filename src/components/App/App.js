@@ -12,6 +12,7 @@ import { AuthContextProvider } from '../Firebase/context';
 import ProtectedRoute from '../ProtectedRoute';
 
 
+
 const App = () => {
   return (
     <BrowserRouter>
