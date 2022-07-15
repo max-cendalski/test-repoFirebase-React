@@ -4,7 +4,7 @@ import { useNavigate} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 
 import Todos from '../Todos/Todos'
-import { getStorage, ref, getDownloadURL, uploadBytes, listAll, list } from 'firebase/storage';
+import { getStorage, ref, getDownloadURL, uploadBytes, listAll } from 'firebase/storage';
 //import Loading from '../Loading/Loading';
 
 const Account = ({uid}) => {
@@ -23,8 +23,8 @@ const Account = ({uid}) => {
       console.log('usrer',user.uid)
      listAll(ref(storage, 'users/'))
      .then((list) => {
+        console.log('list',list.items[0]._location.path_)
       if(list.items.length === 0) {
-        console.log('list',list.items)
          getDownloadURL(ref(storage, 'images/NZAuckand.jpg'))
             .then((defaultPic) => {
              setImage(defaultPic)
