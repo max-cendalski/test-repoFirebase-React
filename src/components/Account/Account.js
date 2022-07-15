@@ -16,14 +16,13 @@ const Account = ({uid}) => {
 
    const storage = getStorage()
    const geImg = ref(storage,`users/${user.uid}`)
-   const geDefault = ref(storage, 'images/NZAuckand.jpg')
-
 
     useEffect(() => {
-      console.log('usrer',user.uid)
      listAll(ref(storage, 'users/'))
      .then((list) => {
-        console.log('list',list.items[0]._location.path_)
+      console.log('list',list.items)
+
+      // THIS NEED TO BE CORRECTED
       if(list.items.length === 0) {
          getDownloadURL(ref(storage, 'images/NZAuckand.jpg'))
             .then((defaultPic) => {
@@ -37,6 +36,7 @@ const Account = ({uid}) => {
           )
         }
       })
+      .catch(err => console.log('ERROR: ',err))
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
