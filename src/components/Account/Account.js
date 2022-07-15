@@ -4,7 +4,7 @@ import { useNavigate} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 
 import Todos from '../Todos/Todos'
-import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, getDownloadURL, uploadBytes, listAll, list } from 'firebase/storage';
 //import Loading from '../Loading/Loading';
 
 const Account = ({uid}) => {
@@ -16,13 +16,26 @@ const Account = ({uid}) => {
 
    const storage = getStorage()
    const geImg = ref(storage,`users/${user.uid}`)
+   const geDefault = ref(storage, 'images/NZAuckand.jpg')
+
 
     useEffect(() => {
-      getDownloadURL(ref(storage, `users/${user.uid}`))
+      console.log('usrer',user.uid)
+     listAll(ref(storage, 'users/'))
+     .then((list) => {
+      if(list.items.length === 0) {
+        console.log('list',list.items)
+         getDownloadURL(ref(storage, 'images/NZAuckand.jpg'))
+            .then((defaultPic) => {
+             setImage(defaultPic)
+            })
+        } else {
+          getDownloadURL(ref(storage, `users/${user.uid}`))
           .then((url) => {
-          setImage(url)
-      }).catch(err => {
-          console.log('ERROR',err)
+            setImage(url)
+          }
+          )
+        }
       })
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
