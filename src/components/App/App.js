@@ -22,22 +22,22 @@ const App = () => {
           <Navigation />
           <hr />
           <Routes>
-          <Route exact path = '/' element={<LandingPage />} />
-          <Route exact path = '/signup' element={<SignUp />} />
-          <Route exact path = '/signin' element={<SingInPage />} />
-          <Route exact path = '/landing' element={<LandingPage />} />
-          <Route exact path = '/pw-forget' element={<PasswordForgetPage />} />
-          <Route
-            path = '/account'
-            element={
-              <ProtectedRoute>
-                <AccountPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route exact path = '/admin' element={<AdminPage />} />
-          <Route exact path = '/home' element={<HomePage />} />
-        </Routes>
+            <Route exact path = '/' element={<LandingPage />} />
+            <Route exact path = '/signup' element={<SignUp />} />
+            <Route exact path = '/signin' element={<SingInPage />} />
+            <Route exact path = '/landing' element={<LandingPage />} />
+            <Route exact path = '/pw-forget' element={<PasswordForgetPage />} />
+            <Route
+              path = '/account'
+              element={
+                <ProtectedRoute>
+                  <AccountPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route exact path = '/admin' element={<AdminPage />} />
+            <Route exact path = '/home' element={<HomePage />} />
+          </Routes>
         </AuthContextProvider>
       </article>
     </BrowserRouter>

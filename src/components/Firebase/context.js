@@ -1,10 +1,12 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import {createUserWithEmailAndPassword,
+        getAuth,
         signInWithEmailAndPassword,
         signOut,
         onAuthStateChanged} from 'firebase/auth'
-import { auth } from './firebase';
+import app from '../Firebase/firebase'
 
+const auth = getAuth()
 
 const UserContext = createContext();
 
@@ -43,14 +45,3 @@ export const AuthContextProvider = ({ children }) => {
 export const UserAuth = () => {
   return useContext(UserContext);
 };
-
-/* const FirebaseContext = React.createContext(null);
-
-export const withFirebase = Component => props => (
-  <FirebaseContext.Consumer>
-    {firebase => <Component {...props} firebase={firebase} />}
-  </FirebaseContext.Consumer>
-)
-
-export default FirebaseContext;
- */
