@@ -2,12 +2,14 @@ import React from 'react'
 import { UserAuth } from '../Firebase/context';
 import { useNavigate} from 'react-router-dom';
 import { useState,useEffect } from 'react';
+import { getDatabase, get } from 'firebase/database';
 
 import Todos from '../Todos/Todos'
 import { getStorage, ref, getDownloadURL, uploadBytes, listAll } from 'firebase/storage';
 //import Loading from '../Loading/Loading';
 
 const Account = ({uid}) => {
+  const db = getDatabase()
    const {user, logout} = UserAuth()
    //const [imagesList, setImagesList] = useState([])
    const [image, setImage] = useState('')
@@ -20,7 +22,7 @@ const Account = ({uid}) => {
     useEffect(() => {
      listAll(ref(storage, 'users/'))
      .then((list) => {
-      console.log('list',list.items.length)
+      console.log('list',list.items)
 
       // THIS NEEDS TO BE CORRECTED
       if(list.items.length === 0) {

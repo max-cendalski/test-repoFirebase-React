@@ -26,15 +26,11 @@ export const AuthContextProvider = ({ children }) => {
     signInWithEmailAndPassword(auth, email, password)
      .then((userCredential) => {
       const user = userCredential.user
-      const email = user.auth.email
-      console.log('userrr',user)
-      console.log('useremail',email)
       const db = getDatabase()
       set(ref(db, `users/${user.uid}`),
       {
         email: user.email,
         photoStatus: false,
-        todos: {}
       })
     })
   }
