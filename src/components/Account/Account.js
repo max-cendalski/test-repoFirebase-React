@@ -22,7 +22,9 @@ const Account = ({uid}) => {
       const databaseRef = dbRef(getDatabase());
       get(child(databaseRef, `users/${user.uid}/photoStatus`))
       .then((snapshot) => {
-        console.log('snapsho',snapshot.val())
+        if (snapshot.val() === false) {
+          console.log('wheee')
+        }
       })
      listAll(ref(storage, 'users/'))
      .then((list) => {
