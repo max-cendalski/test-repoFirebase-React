@@ -1,7 +1,7 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import LandingPage from '../Landing';
-import SignUp from '../SignUp'
+import SignUp from '../SignUp/SignUp'
 import SingInPage from '../SignIn';
 import Navigation from '../Navigation';
 import PasswordForgetPage from '../PasswordForget';

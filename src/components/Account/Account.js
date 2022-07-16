@@ -20,9 +20,9 @@ const Account = ({uid}) => {
     useEffect(() => {
      listAll(ref(storage, 'users/'))
      .then((list) => {
-      console.log('list',list.items)
+      console.log('list',list.items.length)
 
-      // THIS NEED TO BE CORRECTED
+      // THIS NEEDS TO BE CORRECTED
       if(list.items.length === 0) {
          getDownloadURL(ref(storage, 'images/NZAuckand.jpg'))
             .then((defaultPic) => {
