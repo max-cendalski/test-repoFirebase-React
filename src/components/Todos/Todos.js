@@ -49,6 +49,8 @@ const Todos = () => {
   }
 
   const handleEditTodo = (id,title) => {
+    console.log('user',user)
+
     setModal('display-modal-clicked')
     setTodosContainer('invisible')
     setTitleToEdit(title)
