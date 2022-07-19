@@ -36,3 +36,121 @@ h1 {
   width: 50%;
   height: 1.4rem;
 }
+
+.account-container {
+  margin: 2rem auto;
+  width: 80%;
+}
+.todos-container {
+  width: 90%;
+  position: relative;
+}
+
+.todo-item {
+  display: inline-block;
+  width: 40%;
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 1rem auto;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+.todo-item h3 {
+  display: inline-block;
+  margin-right: 4rem;
+}
+.todo-item:hover {
+  width: 41%;
+  font-weight: 500;
+}
+
+.todo-item button {
+  float: right;
+  margin-top: 1.3rem;
+}
+
+.todo-item button:hover {
+  background-color: grey;
+  color: white;
+  transform: scale(1.2,1.2);
+  border: none;
+
+}
+
+.todos-container button {
+  margin-left: 1rem;
+  cursor: pointer;
+  height: 1.4rem;
+}
+
+.todo-form {
+  border: 2px solid grey;
+  margin: 1rem auto;
+  width: 80%;
+}
+
+.todo-form p {
+  display: inline-block;
+  margin-right: 2rem;
+}
+
+.loading-element {
+  margin: 5rem auto;
+  width: 5rem;
+  height: 5rem;
+  border-top: 10px solid rgb(73, 196, 73);
+  border-bottom: 10px solid rgb(73,196,73);
+  border-left:  10px solid rgb(223, 55, 55);
+  border-right:  10px solid rgb(223,55,55);
+  border-radius: 50%;
+}
+
+.loading-element-two {
+  margin: 5rem auto;
+  width: 5rem;
+  height: 5rem;
+  border-left: 10px solid rgb(73, 196, 73);
+  border-right: 10px solid rgb(73, 196, 73);
+  border-top: 10px solid rgb(223, 55, 55);
+  border-bottom: 10px solid rgb(223, 55, 55);
+  border-radius: 50%;
+  transition: 4s linear;
+  transform: rotate(720deg);
+}
+
+.display-modal {
+    visibility:hidden;
+    width: 30%;
+    border: 1px solid black;
+    padding: 1rem;
+    background-color: white;
+}
+
+.display-modal-clicked {
+  position: absolute;
+  background-color: white;
+  width: 60%;
+  height: 4rem;
+  padding: 1rem;
+  line-height: 3.6;
+  top: 70%;
+  border: 2px solid grey;
+  transition: all 0.3s linear;
+  transform: translate(30%, 70%);
+}
+
+.display-modal-clicked button:hover {
+  background-color: grey;
+  color: white;
+  transform: scale(1.2,1.2);
+  border: none;
+}
+
+.image-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.invisible {
+  display: none;
+}

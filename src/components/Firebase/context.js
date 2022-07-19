@@ -1,10 +1,16 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import {createUserWithEmailAndPassword,
+        getAuth,
         signInWithEmailAndPassword,
         signOut,
         onAuthStateChanged} from 'firebase/auth'
-import { auth } from './firebase';
+import { getDatabase, ref, set,  } from 'firebase/database';
 
+
+
+import app from '../Firebase/firebase'
+
+const auth = getAuth(app)
 
 const UserContext = createContext();
 
@@ -12,11 +18,21 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+   return createUserWithEmailAndPassword(auth, email, password)
+  }
+
 
   const signIn = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
+     .then((userCredential) => {
+      const user = userCredential.user
+      const db = getDatabase()
+      set(ref(db, `users/${user.uid}`),
+      {
+        email: user.email,
+        photoStatus: false,
+      })
+    })
   }
 
   const logout = () => {
@@ -25,7 +41,6 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(()=> {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log('user',currentUser)
       setUser(currentUser)
     })
     return () => {
@@ -44,14 +59,3 @@ export const AuthContextProvider = ({ children }) => {
 export const UserAuth = () => {
   return useContext(UserContext);
 };
-
-/* const FirebaseContext = React.createContext(null);
-
-export const withFirebase = Component => props => (
-  <FirebaseContext.Consumer>
-    {firebase => <Component {...props} firebase={firebase} />}
-  </FirebaseContext.Consumer>
-)
-
-export default FirebaseContext;
- */
