@@ -10,7 +10,7 @@ const Tasks = () => {
   useEffect(()  => {
     const getTasks = async() => {
       const tasksList = await getDocs(tasksDb)
-      console.log('tasksList',tasksList)
+      console.log('tasksList')
     }
     getTasks()
   },[])
