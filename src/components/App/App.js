@@ -10,6 +10,7 @@ import AccountPage from '../Account/Account';
 import AdminPage from '../Admin';
 import { AuthContextProvider } from '../Firebase/context';
 import ProtectedRoute from '../ProtectedRoute';
+import TasksPage from '../Tasks/Tasks';
 
 
 
@@ -23,6 +24,7 @@ const App = () => {
           <hr />
           <Routes>
             <Route exact path = '/' element={<LandingPage />} />
+            <Route exact path = '/tasks' element={<TasksPage />} />
             <Route exact path = '/signup' element={<SignUp />} />
             <Route exact path = '/signin' element={<SingInPage />} />
             <Route exact path = '/landing' element={<LandingPage />} />
