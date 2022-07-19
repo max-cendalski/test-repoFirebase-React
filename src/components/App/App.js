@@ -24,7 +24,6 @@ const App = () => {
           <hr />
           <Routes>
             <Route exact path = '/' element={<LandingPage />} />
-            <Route exact path = '/tasks' element={<TasksPage />} />
             <Route exact path = '/signup' element={<SignUp />} />
             <Route exact path = '/signin' element={<SingInPage />} />
             <Route exact path = '/landing' element={<LandingPage />} />

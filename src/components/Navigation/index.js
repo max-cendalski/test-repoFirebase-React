@@ -35,9 +35,6 @@ const Navigation = () => {
           <li>
             <Link to = '/admin'>Admin</Link>
           </li>
-          <li>
-            <Link to = '/tasks'>Tasks</Link>
-          </li>
         </ul>
         {
           user && <button onClick={handleLogout}>Logout</button>
